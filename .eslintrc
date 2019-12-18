@@ -1,0 +1,20 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "plugin:react/recommended",
+        "plugin:jsx-a11y/recommended"
+    ],
+    "plugins": ["prettier", "jsx-a11y"],
+    "rules": {
+        "prettier/prettier": "warn",
+        "jsx-filename-extension": 0,
+        "jsx-quotes": ["error", "prefer-double"],
+        "no-unused-vars": "warn",
+        "react/prop-types": "off"
+    },
+    "env": {
+        "node": true
+    }
+}

@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 import { Details } from "./Details";
+import { Signup } from "@components/User/Signup";
+
 import "../index.css";
 
 export const App = () => {
-    useEffect(() => {
-        const testFetch = async () => {
-            const data = await axios.get("http://localhost:3000/test/12");
-            console.log(data);
-        };
-        testFetch();
-    }, []);
+    // useEffect(() => {
+    //     const testFetch = async () => {
+    //         const data = await axios.get("http://localhost:3000/test/12");
+    //         console.log(data);
+    //     };
+    //     testFetch();
+    // }, []);
 
     return (
         <div>
@@ -21,6 +22,7 @@ export const App = () => {
             <p>and again!</p>
             <span>Seriusly is this it?@</span>
             <Details text={"Neil Berg"} />
+            <Signup />
         </div>
     );
 };

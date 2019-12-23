@@ -12,7 +12,9 @@
         "jsx-filename-extension": 0,
         "jsx-quotes": ["error", "prefer-double"],
         "no-unused-vars": "warn",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "require-atomic-updates": "off",
+        "indent": ["error", 4]
     },
     "env": {
         "node": true

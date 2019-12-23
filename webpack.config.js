@@ -12,7 +12,7 @@ module.exports = {
         publicPath: "/",
         filename: "bundle.js"
     },
-    target: "node",
+    // target: "node",
     module: {
         rules: [
             {
@@ -42,7 +42,8 @@ module.exports = {
     ],
     devServer: {
         contentBase: path.join(__dirname, "build"),
-        open: true
+        open: true,
+        hot: true
     },
     devtool: "source-map"
 };

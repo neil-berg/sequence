@@ -1,14 +1,23 @@
 import Router from "koa-router";
 
+import * as userHandlers from "../handlers/user.handlers";
+
 export const userRouter = new Router({
     prefix: "/user"
 });
 
-userRouter.get("/login", async ctx => {
-    console.log("params", ctx.params);
+userRouter.post("/signup", userHandlers.signup);
+userRouter.post("/login", userHandlers.login);
+userRouter.get("/test", async ctx => {
+    const user = null;
+
+    if (!user) {
+        ctx.throw(413, "No user found", { test: "monkey" });
+    }
+
+    ctx.status = 200;
     ctx.body = {
-        status: "passing",
+        status: "success",
         message: "test passes"
     };
-    ctx.status = 202;
 });

@@ -28,7 +28,7 @@ const testHandler = async ctx => {
     console.log(data);
 };
 
-testRouter.get("/login", ctx => testHandler(ctx));
+testRouter.get("/testtest", ctx => testHandler(ctx));
 
 const auth = (ctx, next) => {
     if (ctx.query.user === "neil") {
@@ -42,14 +42,16 @@ const auth = (ctx, next) => {
     }
 };
 
-testRouter.get(
-    "/auth",
-    (ctx, next) => auth(ctx, next),
-    async ctx => {
-        const data = await User.findById(1);
+const testService = {
+    testMethod: async ctx => {
+        const { id } = ctx.params;
+        const data = await User.findById(id);
         console.log(data);
         ctx.body = {
             message: `Status: ${ctx.status}`
         };
+        console.log(ctx.body);
     }
-);
+};
+
+testRouter.get("/auth/:id", auth, testService.testMethod);

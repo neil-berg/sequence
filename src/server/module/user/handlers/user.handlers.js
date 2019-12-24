@@ -2,20 +2,24 @@ import { genSalt, genHash, compare } from "@server/util/util";
 import { User } from "../model/user.model";
 
 export const signup = async ctx => {
-    const { email, password } = ctx.request.body;
+    const { name, username, email, password } = ctx.request.body;
+    const emailCount = await User.count({ email });
+    const usernameCount = await User.count({ username });
 
-    const isUnique = await User.unique({ email });
-    if (!isUnique) {
-        ctx.throw(400, "Email already exists");
+    if (emailCount > 0) {
+        ctx.throw(400, "Email already exists.");
+    }
+    if (usernameCount > 0) {
+        ctx.throw(400, "Username already exists.");
     }
 
     try {
         const salt = genSalt();
-        const hash = genHash(password, salt);
+        const hash = await genHash(password, salt);
 
         await User.save({
-            name: "new new",
-            username: "newnew",
+            name,
+            username,
             email,
             password: hash,
             salt

@@ -19,12 +19,22 @@ export class User {
         return db.table("user").insert(data);
     }
 
-    static async unique(field) {
-        const column = Object.keys(field)[0];
-        const result = await db
+    static count(query) {
+        return db
             .table("user")
-            .where(field)
-            .count(column);
-        return Number(result[0].count) === 0;
+            .count("*")
+            .where(query)
+            .first()
+            .get("count")
+            .then(Number);
     }
+
+    // function count (query = true) {
+    // 	return db(config.table)
+    // 		.count('*')
+    // 		.where(query)
+    // 		.first()
+    // 		.get('count')
+    // 		.then(Number);
+    // }
 }

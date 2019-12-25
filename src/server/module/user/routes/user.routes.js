@@ -12,7 +12,7 @@ userRouter.get("/test", async ctx => {
     const user = null;
 
     if (!user) {
-        ctx.throw(413, "No user found", { test: "monkey" });
+        ctx.throw(413, "No user found");
     }
 
     ctx.status = 200;

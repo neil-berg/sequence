@@ -16,7 +16,18 @@ export class User {
     }
 
     static save(data) {
-        return db.table("user").insert(data);
+        return db
+            .table("user")
+            .insert(data)
+            .returning("_id")
+            .then(ret => ret[0]);
+    }
+
+    static update(query, data) {
+        return db
+            .table("user")
+            .where(query)
+            .update(data, ["_id", "username", "token"]);
     }
 
     static count(query) {
@@ -28,13 +39,4 @@ export class User {
             .get("count")
             .then(Number);
     }
-
-    // function count (query = true) {
-    // 	return db(config.table)
-    // 		.count('*')
-    // 		.where(query)
-    // 		.first()
-    // 		.get('count')
-    // 		.then(Number);
-    // }
 }

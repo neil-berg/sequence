@@ -1,5 +1,6 @@
-import { genSalt, genHash, compare } from "@server/util/util";
 import { User } from "../model/user.model";
+import { genSalt, genHash, comparePassword } from "@server/auth/password";
+import { genToken } from "../../../auth/token";
 
 export const signup = async ctx => {
     const { name, username, email, password } = ctx.request.body;
@@ -17,15 +18,24 @@ export const signup = async ctx => {
         const salt = genSalt();
         const hash = await genHash(password, salt);
 
-        await User.save({
+        const _id = await User.save({
             name,
             username,
             email,
             password: hash,
             salt
         });
+
+        const token = genToken(_id);
+
+        const user = await User.update({ _id }, { token });
+        console.log(user);
+
         ctx.body = {
-            message: "success"
+            message: "success",
+            data: {
+                user
+            }
         };
         ctx.status = 201;
     } catch (error) {
@@ -43,7 +53,7 @@ export const login = async ctx => {
             ctx.throw(500, "No user found");
         }
 
-        const isMatch = compare(password, user.password, user.salt);
+        const isMatch = comparePassword(password, user.password, user.salt);
 
         if (isMatch) {
             ctx.status = 200;

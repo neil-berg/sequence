@@ -19,7 +19,8 @@
                 "alias": {
                     "@client": "./src/client",
                     "@components": "./src/client/components",
-                    "@server": "./src/server"
+                    "@server": "./src/server",
+                    "@module": "./src/server/module"
                 }
             }
         ]

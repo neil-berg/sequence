@@ -1,42 +1,42 @@
-import { db } from "../../../db/connection";
+import { db } from '../../../db/connection';
 
 export class User {
     static findById(_id) {
         return db
-            .table("user")
+            .table('user')
             .where({ _id })
             .first();
     }
 
     static findByEmail(email) {
         return db
-            .table("user")
+            .table('user')
             .where({ email })
             .first();
     }
 
     static save(data) {
         return db
-            .table("user")
+            .table('user')
             .insert(data)
-            .returning("_id")
+            .returning(['_id', 'name', 'username', 'email'])
             .then(ret => ret[0]);
     }
 
     static update(query, data) {
         return db
-            .table("user")
+            .table('user')
             .where(query)
-            .update(data, ["_id", "username", "token"]);
+            .update(data, ['_id', 'username']);
     }
 
     static count(query) {
         return db
-            .table("user")
-            .count("*")
+            .table('user')
+            .count('*')
             .where(query)
             .first()
-            .get("count")
+            .get('count')
             .then(Number);
     }
 }

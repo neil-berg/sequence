@@ -1,23 +1,14 @@
-import Router from "koa-router";
+import Router from 'koa-router';
+import { auth } from '@server/middleware/auth';
 
-import * as userHandlers from "../handlers/user.handlers";
+import * as userHandlers from '../handlers/user.handlers';
 
 export const userRouter = new Router({
-    prefix: "/user"
+    prefix: '/user'
 });
 
-userRouter.post("/signup", userHandlers.signup);
-userRouter.post("/login", userHandlers.login);
-userRouter.get("/test", async ctx => {
-    const user = null;
-
-    if (!user) {
-        ctx.throw(413, "No user found");
-    }
-
-    ctx.status = 200;
-    ctx.body = {
-        status: "success",
-        message: "test passes"
-    };
+userRouter.post('/signup', userHandlers.signupUser);
+userRouter.post('/login', auth, userHandlers.loginUser);
+userRouter.post('/test', auth, async ctx => {
+    console.log(ctx.response);
 });

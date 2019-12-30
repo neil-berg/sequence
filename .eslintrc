@@ -10,7 +10,7 @@
     "rules": {
         "prettier/prettier": "warn",
         "jsx-filename-extension": 0,
-        "jsx-quotes": ["error", "prefer-double"],
+        "jsx-quotes": ["error", "prefer-single"],
         "no-unused-vars": "warn",
         "react/prop-types": "off",
         "require-atomic-updates": "off",

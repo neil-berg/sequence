@@ -1,56 +1,55 @@
-import { User } from "../model/user.model";
-import { genSalt, genHash, comparePassword } from "@server/auth/password";
-import { genToken } from "../../../auth/token";
+import { User } from '../model/user.model';
+import { Token } from '@module/token/model/token.model';
+import { genSalt, genHash, comparePassword } from '@server/auth/password';
+import { genToken } from '../../../auth/token';
 
-export const signup = async ctx => {
-    const { name, username, email, password } = ctx.request.body;
-    const emailCount = await User.count({ email });
-    const usernameCount = await User.count({ username });
-
-    if (emailCount > 0) {
-        ctx.throw(400, "Email already exists.");
-    }
-    if (usernameCount > 0) {
-        ctx.throw(400, "Username already exists.");
-    }
-
+export const signupUser = async ctx => {
     try {
+        const { name, username, email, password } = ctx.request.body;
+        const emailCount = await User.count({ email });
+        const usernameCount = await User.count({ username });
+
+        if (emailCount > 0) {
+            const error = new Error('Email already exists');
+            error.status = 400;
+            throw error;
+        }
+        if (usernameCount > 0) {
+            const error = new Error('Username already exists');
+            error.status = 400;
+            throw error;
+        }
+
         const salt = genSalt();
         const hash = await genHash(password, salt);
-
-        const _id = await User.save({
+        const user = await User.save({
             name,
             username,
             email,
             password: hash,
             salt
         });
-
-        const token = genToken(_id);
-
-        const user = await User.update({ _id }, { token });
-        console.log(user);
-
+        const newToken = genToken(user._id);
+        const token = await Token.save({ userId: user._id, token: newToken });
         ctx.body = {
-            message: "success",
-            data: {
-                user
-            }
+            message: 'success',
+            user,
+            token
         };
         ctx.status = 201;
     } catch (error) {
-        ctx.throw(500, error.message || "An error occured");
+        ctx.throw(error.status || 500, error.message || 'An error occured');
     }
 };
 
-export const login = async ctx => {
+export const loginUser = async ctx => {
     const { email, password } = ctx.request.body;
 
     try {
         const user = await User.findByEmail(email);
 
         if (!user) {
-            ctx.throw(500, "No user found");
+            ctx.throw(500, 'No user found');
         }
 
         const isMatch = comparePassword(password, user.password, user.salt);
@@ -58,13 +57,13 @@ export const login = async ctx => {
         if (isMatch) {
             ctx.status = 200;
             ctx.body = {
-                message: "user is found",
+                message: 'user is found',
                 user: {
-                    name: "Neil Berg"
+                    name: 'Neil Berg'
                 }
             };
         } else {
-            ctx.throw(400, "Invalid password");
+            ctx.throw(400, 'Invalid password');
         }
     } catch (error) {
         ctx.throw(500, error.message || null);

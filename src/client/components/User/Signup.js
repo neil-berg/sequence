@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 export const Signup = () => {
     const [name, setName] = useState(null);
 
     const signupUser = async () => {
-        const email = "name2@example.com";
-        const password = "red1234!";
+        const name = 'Neil Berg';
+        const username = 'nberg';
+        const email = 'name2@example.com';
+        const password = 'red1234!';
         try {
-            const res = await axios.post("http://localhost:3000/user/signup", {
+            const res = await axios.post('http://localhost:3000/user/signup', {
+                name,
+                username,
                 email,
                 password
             });
@@ -20,20 +24,20 @@ export const Signup = () => {
 
     const testCall = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/user/test");
+            const res = await axios.get('http://localhost:3000/user/test');
             console.log(res.data);
         } catch (error) {
-            console.log("an error", error.response);
+            console.log('an error', error.response);
         }
     };
 
     const loginUser = async () => {
         try {
             const { data } = await axios.post(
-                "http://localhost:3000/user/login",
+                'http://localhost:3000/user/login',
                 {
-                    email: "name1@example.com",
-                    password: "red1234"
+                    email: 'name1@example.com',
+                    password: 'red1234'
                 }
             );
             setName(data.user.name);

@@ -10,5 +10,5 @@ export const userRouter = new Router({
 userRouter.post('/signup', userHandlers.signupUser);
 userRouter.post('/login', auth, userHandlers.loginUser);
 userRouter.post('/test', auth, async ctx => {
-    console.log(ctx.response);
+    console.log(ctx.body);
 });

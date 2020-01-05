@@ -1,11 +1,6 @@
 import { decodeToken } from '../auth/token';
 import { User } from '@module/user/model/user.model';
-
-const scrubSensitive = user => {
-    delete user.password;
-    delete user.salt;
-    return user;
-};
+import { Token } from '../module/token/model/token.model';
 
 export const auth = async (ctx, next) => {
     try {
@@ -16,9 +11,11 @@ export const auth = async (ctx, next) => {
             throw new Error();
         }
         const user = await User.findById(_id);
-        ctx.body = {
-            user: scrubSensitive(user)
-        };
+        const tokenExists = await Token.findOne({ userId: user._id, token });
+        if (!user || !tokenExists) {
+            throw new Error();
+        }
+        ctx.body = { user, token };
         ctx.status = 200;
         await next();
     } catch (error) {

@@ -19,6 +19,14 @@ app.on('error', (err, ctx) => {
     // console.log("ctx", ctx);
 });
 
+// app.on('omit-sensitive-data', ctx => {
+//     if (ctx.body.user) {
+//         delete ctx.body.user.password;
+//         delete ctx.body.user.salt;
+//     }
+//     return ctx;
+// });
+
 // Error handling
 app.use(async (ctx, next) => {
     try {

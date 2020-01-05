@@ -8,7 +8,7 @@ export const userRouter = new Router({
 });
 
 userRouter.post('/signup', userHandlers.signupUser);
-userRouter.post('/login', auth, userHandlers.loginUser);
-userRouter.post('/test', auth, async ctx => {
-    console.log(ctx.body);
-});
+userRouter.post('/login', userHandlers.loginUser);
+userRouter.post('/logout', auth, userHandlers.logoutUser);
+userRouter.get('/me', auth, userHandlers.readUser);
+userRouter.delete('/delete', auth, userHandlers.deleteUser);

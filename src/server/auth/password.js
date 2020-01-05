@@ -13,7 +13,7 @@ export const genHash = async (password, salt) => {
     return buffer.toString('base64');
 };
 
-export const comparePassword = (password, hash, salt) => {
-    const hashed = genHash(password, salt);
+export const comparePassword = async (password, hash, salt) => {
+    const hashed = await genHash(password, salt);
     return hashed === hash;
 };

@@ -1,4 +1,5 @@
 import { db } from '../../../db/connection';
+import { comparePassword } from '@server/auth/password';
 
 export class User {
     static findById(_id) {
@@ -7,14 +8,27 @@ export class User {
             .where({ _id })
             .first();
     }
-
-    static findByEmail(email) {
+    static findOne(query) {
         return db
             .table('user')
-            .where({ email })
+            .where(query)
             .first();
     }
-
+    static async findByCredentials(email, password) {
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw new Error('Unable to login');
+        }
+        const isMatch = await comparePassword(
+            password,
+            user.password,
+            user.salt
+        );
+        if (!isMatch) {
+            throw new Error('Unable to login');
+        }
+        return user;
+    }
     static save(data) {
         return db
             .table('user')
@@ -22,14 +36,12 @@ export class User {
             .returning(['_id', 'name', 'username', 'email'])
             .then(ret => ret[0]);
     }
-
     static update(query, data) {
         return db
             .table('user')
             .where(query)
             .update(data, ['_id', 'username']);
     }
-
     static count(query) {
         return db
             .table('user')
@@ -38,5 +50,11 @@ export class User {
             .first()
             .get('count')
             .then(Number);
+    }
+    static delete(query) {
+        return db
+            .table('user')
+            .where(query)
+            .del();
     }
 }

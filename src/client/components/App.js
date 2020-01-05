@@ -1,12 +1,12 @@
 /* eslint no-undef: off */
 
-import React from "react";
-import styled, { css } from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
 
-import { Details } from "./Details";
-import { Signup } from "@components/User/Signup";
+import { Details } from './Details';
+import { Signup } from '@components/User/Signup';
 
-import "../index.css";
+import '../index.css';
 
 export const App = () => {
     // useEffect(() => {
@@ -24,7 +24,7 @@ export const App = () => {
             <p>Another one</p>
             <p>and again!</p>
             <span>Seriusly is this it?@</span>
-            <Details text={"Neil Berg"} />
+            <Details text={'Neil Berg'} />
             <Signup />
             <Circle orange />
             <Circle yellow />

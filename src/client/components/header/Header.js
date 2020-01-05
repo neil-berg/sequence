@@ -5,11 +5,15 @@ export const Header = () => {
     return (
         <HeaderContainer>
             <h1>Sequence</h1>
+            <button>Get Started</button>
         </HeaderContainer>
     );
 };
 
 const HeaderContainer = styled.header`
-    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: linear-gradient(to right, var(--yellow), var(--orange));
+    padding: 1rem;
 `;

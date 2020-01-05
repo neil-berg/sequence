@@ -19,6 +19,7 @@
                 "alias": {
                     "@client": "./src/client",
                     "@components": "./src/client/components",
+                    "@assets": "./src/client/assets",
                     "@server": "./src/server",
                     "@module": "./src/server/module"
                 }

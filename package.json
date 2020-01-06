@@ -11,8 +11,7 @@
         "db:rollback": "knex migrate:rollback",
         "db:seed": "knex seed:run --env development",
         "build": "webpack --config ./webpack.config.js --mode production",
-        "start": "webpack --config ./webpack.config.js --mode production",
-        "heroku-prebuild": "npm install --dev"
+        "heroku-postbuild": "npm install && npm install --dev && npm run build"
     },
     "author": "Neil Berg <neil@neilberg.dev>",
     "license": "ISC",

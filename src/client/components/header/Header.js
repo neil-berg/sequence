@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import { CTAButton } from '../button/CTAButton';
 
 export const Header = () => {
     return (
         <HeaderContainer>
-            <h1>Sequence</h1>
-            <button>Get Started</button>
+            <h1>
+                <Link to='/'>Sequence</Link>
+            </h1>
+            <CTAButton text='Get Started' level='primary' />
         </HeaderContainer>
     );
 };

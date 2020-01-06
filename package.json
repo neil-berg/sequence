@@ -10,7 +10,8 @@
         "db:migrate": "knex migrate:latest --env development",
         "db:rollback": "knex migrate:rollback",
         "db:seed": "knex seed:run --env development",
-        "build": "webpack --config ./webpack.config.js --mode production"
+        "build": "webpack --config ./webpack.config.js --mode production",
+        "start": "webpack --config ./webpack.config.js --mode production"
     },
     "author": "Neil Berg <neil@neilberg.dev>",
     "license": "ISC",

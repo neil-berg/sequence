@@ -1,43 +1,54 @@
 /* global Promise */
-import Router from "koa-router";
-import { User } from "../module/user/model/user.model";
+import Router from 'koa-router';
+import { User } from '../module/user/model/user.model';
 
 export const testRouter = new Router();
 
-testRouter.get("/test/:id", async ctx => {
-    console.log("params", ctx.params);
+testRouter.get('/herokutest', ctx => {
     ctx.body = {
-        status: "passing",
-        message: "test passes"
+        message: 'success',
+        data: {
+            name: 'Neil',
+            alive: 'yes'
+        }
+    };
+    ctx.status = 200;
+});
+
+testRouter.get('/test/:id', async ctx => {
+    console.log('params', ctx.params);
+    ctx.body = {
+        status: 'passing',
+        message: 'test passes'
     };
     ctx.status = 202;
 });
 
 const p1 = new Promise((resolve, reject) => {
-    resolve("okkkk");
+    resolve('okkkk');
 });
 
 const testHandler = async ctx => {
     const { user } = ctx.query;
     ctx.body = {
-        message: "coming from testHandler!",
-        status: user === "neil" ? 200 : 404
+        message: 'coming from testHandler!',
+        status: user === 'neil' ? 200 : 404
     };
-    ctx.status = user === "neil" ? 200 : 404;
+    ctx.status = user === 'neil' ? 200 : 404;
     const data = await p1;
     console.log(data);
 };
 
-testRouter.get("/testtest", ctx => testHandler(ctx));
+testRouter.get('/testtest', ctx => testHandler(ctx));
 
 const auth = (ctx, next) => {
-    if (ctx.query.user === "neil") {
+    if (ctx.query.user === 'neil') {
         ctx.status = 200;
         next();
     } else {
         ctx.status = 401;
         ctx.body = {
-            message: "Unauthorized"
+            message: 'Unauthorized'
         };
     }
 };
@@ -54,4 +65,4 @@ const testService = {
     }
 };
 
-testRouter.get("/auth/:id", auth, testService.testMethod);
+testRouter.get('/auth/:id', auth, testService.testMethod);

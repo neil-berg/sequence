@@ -1,40 +1,40 @@
-const path = require("path");
+const path = require('path');
 
-const BASE_PATH = path.join(__dirname, "src", "server", "db");
+const BASE_PATH = path.join(__dirname, 'src', 'server', 'db');
 
 module.exports = {
     test: {
-        client: "pg",
+        client: 'pg',
         connection: {
-            port: "5432",
-            user: "nberg",
-            password: "nberg",
-            database: "sequence_api_test"
+            port: '5432',
+            user: 'nberg',
+            password: 'nberg',
+            database: 'sequence_api_test'
         },
         migrations: {
-            directory: path.join(BASE_PATH, "migrations")
+            directory: path.join(BASE_PATH, 'migrations')
         },
         seeds: {
-            directory: path.join(BASE_PATH, "seeds")
+            directory: path.join(BASE_PATH, 'seeds')
         }
     },
     development: {
-        client: "pg",
+        client: 'pg',
         connection: {
-            port: "5432",
-            user: "nberg",
-            password: "nberg",
-            database: "sequence_api"
+            port: '5432',
+            user: 'nberg',
+            password: 'nberg',
+            database: 'sequence_api'
         },
         pool: {
             min: 2,
             max: 10
         },
         migrations: {
-            directory: path.join(BASE_PATH, "migrations")
+            directory: path.join(BASE_PATH, 'migrations')
         },
         seeds: {
-            directory: path.join(BASE_PATH, "seeds")
+            directory: path.join(BASE_PATH, 'seeds')
         }
     }
 };

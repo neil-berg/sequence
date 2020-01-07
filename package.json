@@ -13,7 +13,7 @@
         "clean": "rm -rf ./build && mkdir ./build",
         "build:client": "webpack --config ./webpack.config.js --mode production",
         "build": "babel ./src -s --copy-files --out-dir ./build",
-        "start": "babel-node ./src/server/index.js",
+        "start": "npm run build && node ./build/server/index.js",
         "heroku-postbuild": "npm install && npm install --dev && npm run build:client"
     },
     "author": "Neil Berg <neil@neilberg.dev>",

@@ -28,6 +28,8 @@ app.use(async (ctx, next) => {
     }
 });
 
+app.use(testRouter.routes());
+app.use(testRouter.allowedMethods());
 app.use(userRouter.routes());
 app.use(userRouter.allowedMethods());
 

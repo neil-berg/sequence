@@ -12,3 +12,8 @@ userRouter.post('/login', userHandlers.loginUser);
 userRouter.post('/logout', auth, userHandlers.logoutUser);
 userRouter.get('/me', auth, userHandlers.readUser);
 userRouter.delete('/delete', auth, userHandlers.deleteUser);
+userRouter.get('/hello', ctx => {
+    ctx.body = {
+        message: 'hello wirld'
+    };
+});

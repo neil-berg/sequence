@@ -4,14 +4,16 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start:client": "webpack-dev-server --config ./webpack.config.js --mode development",
-        "start:server": "nodemon --config .nodemonrc ./src/server/index.js",
-        "start:local": "run-p start:server start:client",
+        "start:local:client": "webpack-dev-server --config ./webpack.config.js --mode development",
+        "start:local:server": "nodemon --config .nodemonrc ./src/server/index.js",
+        "start:local": "run-p start:local:server start:local:client",
         "db:migrate": "knex migrate:latest --env development",
         "db:rollback": "knex migrate:rollback",
         "db:seed": "knex seed:run --env development",
-        "build": "webpack --config ./webpack.config.js --mode production",
-        "heroku-postbuild": "npm install && npm install --dev && npm run build"
+        "clean": "rm -rf ./build && mkdir ./build",
+        "build:client": "webpack --config ./webpack.config.js --mode production",
+        "build": "babel ./src -s --copy-files --out-dir ./build",
+        "heroku-postbuild": "npm install && npm install --dev && npm run build:client"
     },
     "author": "Neil Berg <neil@neilberg.dev>",
     "license": "ISC",
@@ -58,5 +60,8 @@
         "react-dom": "^16.12.0",
         "react-router-dom": "^5.1.2",
         "styled-components": "^4.4.1"
+    },
+    "engines": {
+        "node": "10.16.0"
     }
 }

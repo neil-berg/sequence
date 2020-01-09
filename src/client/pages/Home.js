@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import MedidationIcon from '@assets/meditation.svg';
 import SearchIcon from '@assets/investigate.svg';
@@ -7,8 +9,24 @@ import ListIcon from '@assets/list.svg';
 import WarriorIcon from '@assets/warrior.svg';
 
 export const Home = () => {
+    const [data, setData] = useState(null);
+    const handleClick = async () => {
+        try {
+            const { data } = await axios.get(
+                process.env.API_BASE_URL + '/herokutest'
+            );
+            setData(data.message);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     return (
         <HomeContainer>
+            <button onClick={() => handleClick()}>TEST</button>
+            <h3>The response is: {!data ? 'no data' : data}</h3>
+            <div>
+                <Link to='/about'>ABOUTTTTTT</Link>
+            </div>
             <section className='intro'>
                 <MedidationIcon
                     className='intro__icon'

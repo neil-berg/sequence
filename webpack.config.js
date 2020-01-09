@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const BUILD_DIR = path.resolve(__dirname, 'build');
 
@@ -44,8 +45,8 @@ module.exports = {
         extensions: ['*', '.js', '.jsx']
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        new Dotenv({
+            path: './.env.development'
         }),
         new HtmlWebpackPlugin({
             title: 'Sequence',

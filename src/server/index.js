@@ -2,6 +2,8 @@ import Koa from 'koa';
 import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
 import serve from 'koa-static';
+import path from 'path';
+import fs from 'fs';
 
 import { testRouter } from './routes/index';
 import { userRouter } from './module/user/routes/user.routes';
@@ -33,8 +35,14 @@ app.use(testRouter.allowedMethods());
 app.use(userRouter.routes());
 app.use(userRouter.allowedMethods());
 
-// serve static files from react app in /build
-app.use(serve('./build'));
+app.use(serve('build/'));
+// If the file is not found by koa
+// intercept all request and return index.html
+// this way you can manage the request in React
+app.use((ctx, next) => {
+    ctx.type = 'html';
+    ctx.body = fs.readFileSync('../../build/index.html');
+});
 
 export const server = app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);

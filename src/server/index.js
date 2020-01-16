@@ -35,13 +35,13 @@ app.use(testRouter.allowedMethods());
 app.use(userRouter.routes());
 app.use(userRouter.allowedMethods());
 
-app.use(serve('build/'));
+app.use(serve('build'));
 // If the file is not found by koa
 // intercept all request and return index.html
 // this way you can manage the request in React
 app.use((ctx, next) => {
     ctx.type = 'html';
-    ctx.body = fs.readFileSync('../../build/index.html');
+    ctx.body = fs.readFileSync(path.join('build', 'index.html'));
 });
 
 export const server = app.listen(PORT, () => {

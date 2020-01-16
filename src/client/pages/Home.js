@@ -20,9 +20,18 @@ export const Home = () => {
             console.log(e);
         }
     };
+    const handleOtherClick = async () => {
+        try {
+            const { data } = await axios.get('/herokutest');
+            setData(data.message);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     return (
         <HomeContainer>
             <button onClick={() => handleClick()}>TEST</button>
+            <button onClick={() => handleOtherClick()}>TEST</button>
             <h3>The response is: {!data ? 'no data' : data}</h3>
             <div>
                 <Link to='/about'>ABOUTTTTTT</Link>

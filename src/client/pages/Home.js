@@ -10,19 +10,10 @@ import WarriorIcon from '@assets/warrior.svg';
 
 export const Home = () => {
     const [data, setData] = useState(null);
-    const handleClick = async () => {
-        try {
-            const { data } = await axios.get(
-                process.env.API_BASE_URL + '/herokutest'
-            );
-            setData(data.message);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+
     const handleOtherClick = async () => {
         try {
-            const { data } = await axios.get('/herokutest');
+            const { data } = await axios.get('/api/v1/user/hello');
             setData(data.message);
         } catch (e) {
             console.log(e);
@@ -30,7 +21,6 @@ export const Home = () => {
     };
     return (
         <HomeContainer>
-            <button onClick={() => handleClick()}>TEST</button>
             <button onClick={() => handleOtherClick()}>TEST</button>
             <h3>The response is: {!data ? 'no data' : data}</h3>
             <div>

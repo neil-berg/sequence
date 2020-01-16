@@ -4,14 +4,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev:local:client": "webpack-dev-server --config ./webpack.config.js",
+        "dev:local:client": "webpack-dev-server --config ./webpack.dev.config.js",
         "dev:local:server": "nodemon --config .nodemonrc ./src/server/index.js",
         "dev:local": "run-p dev:local:server dev:local:client",
         "db:migrate": "knex migrate:latest --env development",
         "db:rollback": "knex migrate:rollback",
         "db:seed": "knex seed:run --env development",
         "clean": "rm -rf ./build && mkdir ./build",
-        "build:client": "webpack --config ./webpack.config.js",
+        "build:client": "webpack --config ./webpack.prod.config.js",
         "build": "babel ./src -s --copy-files --out-dir ./build",
         "start": "npm run build && node ./build/server/index.js",
         "heroku-postbuild": "npm install && npm install --dev && npm run build:client"

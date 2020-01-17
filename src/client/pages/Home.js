@@ -11,52 +11,22 @@ import WarriorIcon from '@assets/warrior.svg';
 export const Home = () => {
     const [data, setData] = useState(null);
 
-    const handleOtherClick = async () => {
+    const handleSignup = async () => {
         try {
-            const { data } = await axios.get('/api/v1/user/hello');
-            setData(data.message);
-        } catch (e) {
-            console.log(e);
+            const res = await axios.post('/api/v1/user/signup', {
+                name: 'Sally Draper',
+                username: 'Sally',
+                email: 'sally@demo.com',
+                password: 'red1234!'
+            });
+            console.log(res);
+        } catch (error) {
+            console.log(error);
         }
     };
     return (
         <HomeContainer>
-            <button onClick={() => handleOtherClick()}>TEST</button>
-            <h3>The response is: {!data ? 'no data' : data}</h3>
-            <div>
-                <Link to='/about'>ABOUTTTTTT</Link>
-            </div>
-            <section className='intro'>
-                <MedidationIcon
-                    className='intro__icon'
-                    width='200px'
-                    height='200px'
-                />
-                <p className='intro__text'>Ready. Set. Flow.</p>
-            </section>
-            <section className='features'>
-                <ul className='features-list'>
-                    <li className='features-list__item'>
-                        <SearchIcon />
-                        <span>Search for poses</span>
-                    </li>
-                    <li className='features-list__item'>
-                        <ListIcon />
-                        <span>Create new sequences</span>
-                    </li>
-                    <li className='features-list__item'>
-                        <WarriorIcon />
-                        <span>Get your flow on</span>
-                    </li>
-                </ul>
-            </section>
-            <section className='quotes'>
-                <p>
-                    Yoga is the journey of the self, through the self, to the
-                    self.
-                </p>
-                <p>The Bhagavad Gita</p>
-            </section>
+            <button onClick={() => handleSignup()}>Signup Sally</button>
         </HomeContainer>
     );
 };

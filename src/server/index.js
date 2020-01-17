@@ -5,7 +5,7 @@ import serve from 'koa-static';
 import path from 'path';
 import fs from 'fs';
 
-import { apiRouter } from './routes';
+import { userRouter } from '@module/user/routes/user.routes';
 
 const app = new Koa();
 const PORT = process.env.PORT || 3000;
@@ -29,12 +29,7 @@ app.use(async (ctx, next) => {
     }
 });
 
-app.use(apiRouter.routes()).use(apiRouter.allowedMethods());
-
-// app.use(testRouter.routes());
-// app.use(testRouter.allowedMethods());
-// app.use(userRouter.routes());
-// app.use(userRouter.allowedMethods());
+app.use(userRouter.routes()).use(userRouter.allowedMethods());
 
 app.use(serve('build'));
 // If the file is not found by koa

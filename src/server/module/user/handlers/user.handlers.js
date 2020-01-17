@@ -6,7 +6,7 @@ import { omitSensitiveData } from '@server/util';
 
 export const signupUser = async ctx => {
     try {
-        const { name, username, email, password } = ctx.req.body;
+        const { name, username, email, password } = ctx.request.body;
         const emailCount = await User.count({ email });
         const usernameCount = await User.count({ username });
 
@@ -45,7 +45,7 @@ export const signupUser = async ctx => {
 
 export const loginUser = async ctx => {
     try {
-        const { email, password } = ctx.req.body;
+        const { email, password } = ctx.request.body;
         const user = await User.findByCredentials(email, password);
         const token = genToken(user._id);
         await Token.save({ userId: user._id, token });

@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-export const CTAButton = ({ text, level }) => (
-    <Button level={level}>{text}</Button>
+export const CTAButton = ({ text, level, ...props }) => (
+    <Button {...props} level={level}>
+        {text}
+    </Button>
 );
 
 const Button = styled.button`

@@ -9,17 +9,31 @@ import { setUser } from './user.redux';
 
 export const LoginForm = () => {
     const dispatch = useDispatch();
-    const [loginType, setLoginType] = useState('create');
+    const [showLogin, setShowLogin] = useState(true);
     const [userDetails, setUserDetails] = useState({
         name: '',
         username: '',
         email: '',
         password: ''
     });
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        dispatch(setUser(userDetails));
-
+        console.log(userDetails);
+        const url = `/api/v1/user/${showLogin ? 'login' : 'signup'}`;
+        try {
+            const { data: { user, token } } = await axios.post(url, userDetails);
+            dispatch(setUser(user));
+            console.log('storing token in LS');
+            console.log(token);
+            setUserDetails({
+                name: '',
+                username: '',
+                email: '',
+                password: ''
+            })
+        } catch (error) {
+            console.log(error);
+        }
     };
     const renderFormFields = () => {
         const fields = [
@@ -66,7 +80,7 @@ export const LoginForm = () => {
             }
         ];
 
-        const fieldsToShow = loginType === 'login' ? fields.slice(2) : fields;
+        const fieldsToShow = showLogin ? fields.slice(2) : fields;
 
         return fieldsToShow.map(({ id, label, type, ...props }) => (
             <div className='field' key={id}>
@@ -90,10 +104,18 @@ export const LoginForm = () => {
         ));
     };
 
+
     return (
         <Form onSubmit={e => handleSubmit(e)}>
             {renderFormFields()}
-            <button>Log In</button>
+            <div className='button-group'>
+                <button className='submit-btn' type='submit'>
+                    {showLogin ? 'Login' : 'Signup'}
+                </button>
+                <button className='toggle-btn' onClick={() => setShowLogin(!showLogin)}>
+                    {showLogin ? 'Create an account' : 'Have an account?'}
+                </button>
+            </div>
         </Form>
     );
 };
@@ -101,7 +123,6 @@ export const LoginForm = () => {
 export const Form = styled.form`
     height: 100%;
     width: 100%;
-    margin: 0;
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
@@ -124,7 +145,7 @@ export const Form = styled.form`
     .field__input {
         height: 2rem;
         margin: 0;
-        padding: 0;
+        padding: 0 0 0 0.5rem;
         border: 0;
         outline: 0;
         border-radius: 5px;
@@ -133,7 +154,6 @@ export const Form = styled.form`
 
     .field__input::placeholder {
         font-size: 0.8rem;
-        transform: translateX(10px);
     }
 
     .field__input:focus {
@@ -144,5 +164,17 @@ export const Form = styled.form`
 
     .field__input:not(focus) {
         background: lightgrey;
+    }
+
+    .button-group {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .submit-btn {
+        padding: 0.5rem 1rem;
     }
 `;

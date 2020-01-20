@@ -1,10 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 export const userInitialState = {
+    _id: null,
     name: '',
     username: '',
-    email: '',
-    password: ''
+    email: ''
 };
 
 export const setUser = user => ({
@@ -12,16 +12,11 @@ export const setUser = user => ({
     user
 });
 
-export const setEmail = email => (dispatch, getState) => {
-    const { _id } = getState().user;
-    const newEmail = _id === 100 ? 'betty@demo.com' : email;
-    dispatch({
-        type: 'user/setEmail',
-        email: newEmail
-    });
-};
+export const removeUser = () => ({
+    type: 'user/remove'
+});
 
 export const userReducer = createReducer(userInitialState, {
     'user/add': (state, action) => ({ ...state, ...action.user }),
-    'user/setEmail': (state, action) => ({ ...state, email: action.email })
+    'user/remove': (state, action) => ({ ...state, ...userInitialState })
 });

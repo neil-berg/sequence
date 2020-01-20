@@ -5,8 +5,9 @@ import { useDispatch } from 'react-redux';
 
 import { setUser, setEmail } from '../user/user.redux';
 import { LoginForm } from '../user/LoginForm';
+import { closeModal } from './modal.redux';
 
-export const AuthModal = ({ showAuthModal, setShowAuthModal }) => {
+export const AuthModal = ({ showAuthModal }) => {
     const dispatch = useDispatch();
 
     const backdropTransition = useTransition(showAuthModal, null, {
@@ -16,9 +17,9 @@ export const AuthModal = ({ showAuthModal, setShowAuthModal }) => {
     });
 
     const cardTransition = useTransition(showAuthModal, null, {
-        from: { opacity: 0, transform: `translateY(-100px)` },
-        enter: { opacity: 1, transform: `translateY(0)` },
-        leave: { opacity: 0, transform: `translateY(-100px)` }
+        from: { opacity: 0, transform: `translateX(100px)` },
+        enter: { opacity: 1, transform: `translateX(0)` },
+        leave: { opacity: 0, transform: `translateX(-100px)` }
     });
 
     const handleClick = () => {
@@ -48,7 +49,7 @@ export const AuthModal = ({ showAuthModal, setShowAuthModal }) => {
                             role='dialog'
                             onClick={e => {
                                 if (e.target.classList.contains('backdrop')) {
-                                    setShowAuthModal(false);
+                                    dispatch(closeModal('authModal'));
                                 }
                             }}
                         >
@@ -93,9 +94,8 @@ const Container = styled.div`
         border-radius: 20px;
         border: 1px var(--burntorange) solid;
         box-shadow: 0px 10px 20px rgba(76, 54, 138, 0.35);
-        padding: 1.2rem;
         width: 320px;
-        min-height: 425px;
-        background: var(--green);
+        height: 425px;
+        background: var(--white);
     }
 `;

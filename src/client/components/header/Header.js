@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom';
 import Portal from '../portal/Portal';
 import { AuthModal } from '../modal/AuthModal';
 import { CTAButton } from '../button/CTAButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleModal } from '@components/modal/modal.redux';
 
 export const Header = () => {
-    const [showAuthModal, setShowAuthModal] = useState(false);
+    const dispatch = useDispatch();
+    const showAuthModal = useSelector(state => state.modal.authModal.open);
     return (
         <HeaderContainer>
             <h1>
@@ -16,13 +19,10 @@ export const Header = () => {
             <CTAButton
                 text='Get Started'
                 level='primary'
-                onClick={() => setShowAuthModal(!showAuthModal)}
+                onClick={() => dispatch(toggleModal('authModal'))}
             />
             <Portal>
-                <AuthModal
-                    showAuthModal={showAuthModal}
-                    setShowAuthModal={setShowAuthModal}
-                />
+                <AuthModal showAuthModal={showAuthModal} />
             </Portal>
         </HeaderContainer>
     );

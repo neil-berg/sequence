@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 
 export const modalInitialState = {
     authModal: {
-        open: true
+        open: false
     },
     profileModal: {
         open: false

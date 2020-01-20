@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { animated, useTransition } from 'react-spring';
+import { useDispatch } from 'react-redux';
+
+import { setUser, setEmail } from '../user/user.redux';
+import { LoginForm } from '../user/LoginForm';
 
 export const AuthModal = ({ showAuthModal, setShowAuthModal }) => {
+    const dispatch = useDispatch();
+
     const backdropTransition = useTransition(showAuthModal, null, {
         from: { opacity: 0 },
         enter: { opacity: 1 },
@@ -14,6 +20,20 @@ export const AuthModal = ({ showAuthModal, setShowAuthModal }) => {
         enter: { opacity: 1, transform: `translateY(0)` },
         leave: { opacity: 0, transform: `translateY(-100px)` }
     });
+
+    const handleClick = () => {
+        const testUser = {
+            _id: 100,
+            name: 'Don Draper',
+            username: 'Don',
+            email: 'don@demo.com'
+        };
+        dispatch(setUser(testUser));
+    };
+
+    const handleOtherClick = () => {
+        dispatch(setEmail('sample@demo.com'));
+    };
 
     return (
         <Container>
@@ -41,7 +61,7 @@ export const AuthModal = ({ showAuthModal, setShowAuthModal }) => {
                                                 key={key}
                                                 style={animation}
                                             >
-                                                <button>Log in</button>
+                                                <LoginForm />
                                             </animated.div>
                                         )
                                     );
@@ -70,14 +90,12 @@ const Container = styled.div`
         z-index: 3;
     }
     .card {
-        position: relative;
         border-radius: 20px;
         border: 1px var(--burntorange) solid;
         box-shadow: 0px 10px 20px rgba(76, 54, 138, 0.35);
         padding: 1.2rem;
         width: 320px;
-        height: '425px';
+        min-height: 425px;
         background: var(--green);
-        transition: height ease 0.2s;
     }
 `;

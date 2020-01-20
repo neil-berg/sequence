@@ -1,27 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import Portal from '../portal/Portal';
+import { AuthModal } from '../modal/AuthModal';
 import { CTAButton } from '../button/CTAButton';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleModal } from '@components/modal/modal.redux';
 
 export const Header = () => {
-    const handleClick = async () => {
-        console.log('I was clicked');
-        try {
-            const res = await axios.get('http://localhost:3000/test/25');
-            console.log(res);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const dispatch = useDispatch();
+    const showAuthModal = useSelector(state => state.modal.authModal.open);
     return (
         <HeaderContainer>
             <h1>
                 <Link to='/'>Sequence</Link>
             </h1>
-            <button onClick={() => handleClick()}>Click me</button>
-            <CTAButton text='Get Started' level='primary' />
+            <CTAButton
+                text='Get Started'
+                level='primary'
+                onClick={() => dispatch(toggleModal('authModal'))}
+            />
+            <Portal>
+                <AuthModal showAuthModal={showAuthModal} />
+            </Portal>
         </HeaderContainer>
     );
 };

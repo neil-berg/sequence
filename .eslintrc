@@ -4,9 +4,10 @@
         "eslint:recommended",
         "plugin:prettier/recommended",
         "plugin:react/recommended",
-        "plugin:jsx-a11y/recommended"
+        "plugin:jsx-a11y/recommended",
+        "plugin:jest/recommended"
     ],
-    "plugins": ["prettier", "jsx-a11y"],
+    "plugins": ["prettier", "jsx-a11y", "jest"],
     "rules": {
         "prettier/prettier": "warn",
         "jsx-filename-extension": 0,
@@ -17,6 +18,7 @@
         "indent": ["error", 4, { "SwitchCase": 1 }]
     },
     "env": {
-        "node": true
+        "node": true,
+        "jest": true
     }
 }

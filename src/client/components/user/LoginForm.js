@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 
+import { Button } from '@components/button/Button';
 import { setUser } from './user.redux';
 
 export const LoginForm = () => {
@@ -109,12 +110,19 @@ export const LoginForm = () => {
         <Form onSubmit={e => handleSubmit(e)}>
             {renderFormFields()}
             <div className='button-group'>
-                <button className='submit-btn' type='submit'>
-                    {showLogin ? 'Login' : 'Signup'}
-                </button>
-                <button className='toggle-btn' onClick={() => setShowLogin(!showLogin)}>
-                    {showLogin ? 'Create an account' : 'Have an account?'}
-                </button>
+                <Button
+                    type='submit'
+                    flavor='outline'
+                    text={showLogin ? 'Login' : 'Signup'}
+                    color='var(--green)'
+                    background='var(--white)'
+                />
+                <Button
+                    flavor='text'
+                    text={showLogin ? 'Create an account' : 'Have an account?'}
+                    color='var(--green)'
+                    onClick={() => setShowLogin(!showLogin)}
+                />
             </div>
         </Form>
     );
@@ -140,6 +148,8 @@ export const Form = styled.form`
     .field__label {
         margin: 0 0 0.25rem 0;
         padding: 0;
+        color: var(--green);
+        font-weight: bold;
     }
 
     .field__input {
@@ -159,11 +169,11 @@ export const Form = styled.form`
     .field__input:focus {
         background: var(--white);
         border-radius: 0px;
-        border-bottom: 2px black solid;
+        border-bottom: 2px solid var(--green);
     }
 
     .field__input:not(focus) {
-        background: lightgrey;
+        background: var(--lightgrey);
     }
 
     .button-group {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Portal from '../portal/Portal';
 import { AuthModal } from '../modal/AuthModal';
-import { CTAButton } from '../button/CTAButton';
+import { Button } from '../button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '@components/modal/modal.redux';
 
@@ -16,9 +16,11 @@ export const Header = () => {
             <h1>
                 <Link to='/'>Sequence</Link>
             </h1>
-            <CTAButton
-                text='Get Started'
-                level='primary'
+            <Button
+                text='Login'
+                flavor='outline'
+                background='var(--green)'
+                color='var(--white)'
                 onClick={() => dispatch(toggleModal('authModal'))}
             />
             <Portal>
@@ -32,6 +34,6 @@ const HeaderContainer = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to right, var(--sand), var(--green));
+    background: var(--green);
     padding: 1rem;
 `;

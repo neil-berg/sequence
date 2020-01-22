@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { animated, useTransition } from 'react-spring';
 import { useDispatch } from 'react-redux';
 
-import { setUser, setEmail } from '../user/user.redux';
 import { LoginForm } from '../user/LoginForm';
 import { closeModal } from './modal.redux';
 
@@ -21,20 +20,6 @@ export const AuthModal = ({ showAuthModal }) => {
         enter: { opacity: 1, transform: `translateX(0)` },
         leave: { opacity: 0, transform: `translateX(-100px)` }
     });
-
-    const handleClick = () => {
-        const testUser = {
-            _id: 100,
-            name: 'Don Draper',
-            username: 'Don',
-            email: 'don@demo.com'
-        };
-        dispatch(setUser(testUser));
-    };
-
-    const handleOtherClick = () => {
-        dispatch(setEmail('sample@demo.com'));
-    };
 
     return (
         <Container>
@@ -63,6 +48,18 @@ export const AuthModal = ({ showAuthModal }) => {
                                                 style={animation}
                                             >
                                                 <LoginForm />
+                                                <button
+                                                    className='button-close'
+                                                    onClick={() =>
+                                                        dispatch(
+                                                            closeModal(
+                                                                'authModal'
+                                                            )
+                                                        )
+                                                    }
+                                                >
+                                                    Close
+                                                </button>
                                             </animated.div>
                                         )
                                     );
@@ -86,16 +83,26 @@ const Container = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: var(--white);
+        background-color: var(--sand);
         overflow: hidden;
         z-index: 3;
     }
     .card {
         border-radius: 20px;
         border: 1px var(--burntorange) solid;
-        box-shadow: 0px 10px 20px rgba(76, 54, 138, 0.35);
+        box-shadow: 0px 10px 20px rgba(223, 101, 67, 0.75);
         width: 320px;
         height: 425px;
+        background: var(--white);
+        position: relative;
+    }
+    .button-close {
+        cursor: pointer;
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        border: 0;
+        color: var(--green);
         background: var(--white);
     }
 `;

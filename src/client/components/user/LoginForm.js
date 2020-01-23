@@ -22,16 +22,18 @@ export const LoginForm = () => {
         console.log(userDetails);
         const url = `/api/v1/user/${showLogin ? 'login' : 'signup'}`;
         try {
-            const { data: { user, token } } = await axios.post(url, userDetails);
-            dispatch(setUser(user));
-            console.log('storing token in LS');
-            console.log(token);
-            setUserDetails({
-                name: '',
-                username: '',
-                email: '',
-                password: ''
-            })
+            // const { data: { user, token } } = await axios.post(url, userDetails);
+            const res = await axios.post(url, userDetails);
+            console.log(res);
+            // dispatch(setUser(user));
+            // console.log('storing token in LS');
+            // console.log(token);
+            // setUserDetails({
+            //     name: '',
+            //     username: '',
+            //     email: '',
+            //     password: ''
+            // })
         } catch (error) {
             console.log(error);
         }

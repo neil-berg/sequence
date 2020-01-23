@@ -20,6 +20,7 @@ const testUser = {
 
 describe('userReducer', () => {
     let store;
+    console.log('NODE_ENV', process.env.NODE_ENV);
 
     describe('user/add', () => {
         beforeAll(() => {

@@ -32,12 +32,15 @@ export const signupUser = async ctx => {
         });
         const token = genToken(user._id);
         await Token.save({ userId: user._id, token });
+        ctx.state.user = user;
+        ctx.state.token = token;
         ctx.response.body = {
             message: 'success',
             user: omitSensitiveData(user),
             token
         };
         ctx.response.status = 201;
+        console.log(ctx.response);
     } catch (error) {
         ctx.throw(error.status || 500, error.message || 'An error occured');
     }
@@ -62,10 +65,10 @@ export const loginUser = async ctx => {
 
 export const logoutUser = async ctx => {
     try {
-        const { user, token } = ctx.body;
+        const { user, token } = ctx.state;
         await Token.delete({ userId: user._id, token });
-        ctx.status = 200;
-        ctx.body = {
+        ctx.response.status = 200;
+        ctx.response.body = {
             message: 'success'
         };
     } catch (error) {

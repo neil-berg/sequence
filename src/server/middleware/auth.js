@@ -4,7 +4,7 @@ import { Token } from '../module/token/model/token.model';
 
 export const auth = async (ctx, next) => {
     try {
-        const token = ctx.req.headers.authorization.replace('Bearer ', '');
+        const token = ctx.request.headers.authorization.replace('Bearer ', '');
         const { _id, exp } = decodeToken(token);
         const expDate = exp * 1000;
         if (Date.now() > expDate) {
@@ -15,8 +15,8 @@ export const auth = async (ctx, next) => {
         if (!user || !tokenExists) {
             throw new Error();
         }
-        ctx.body = { user, token };
-        ctx.status = 200;
+        ctx.state.user = user;
+        ctx.state.token = token;
         await next();
     } catch (error) {
         ctx.throw(401, 'Please authenticate');

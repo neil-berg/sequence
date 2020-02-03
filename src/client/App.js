@@ -1,5 +1,5 @@
 /* eslint no-undef: off */
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Header } from './components/header/Header';
@@ -10,6 +10,23 @@ import { About } from './pages/About';
 import './index.css';
 
 export const App = () => {
+    // const [isLoggedIn, setisLoggedIn] = useState(true);
+
+    // if (!isLoggedIn) {
+    //     return (
+    //         <Router>
+    //             <Switch>
+    //                 <Route path='/'>
+    //                     <Home />
+    //                 </Route>
+    //                 <Route>
+    //                     <Home />
+    //                 </Route>
+    //             </Switch>
+    //         </Router>
+    //     );
+    // }
+
     return (
         <Router>
             <Header />

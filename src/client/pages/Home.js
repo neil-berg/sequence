@@ -29,6 +29,7 @@ export const Home = () => {
                         width='200'
                         height='200'
                     />
+                    <p className='about__item-text'>Search for poses</p>
                 </div>
                 <div className='about__item'>
                     <ListIcon
@@ -36,6 +37,7 @@ export const Home = () => {
                         width='200'
                         height='200'
                     />
+                    <p className='about__item-text'>Create new sequences</p>
                 </div>
                 <div className='about__item'>
                     <WarriorIcon
@@ -43,7 +45,15 @@ export const Home = () => {
                         width='200'
                         height='200'
                     />
+                    <p className='about__item-text'>Let it flow</p>
                 </div>
+            </div>
+            <div className='quote'>
+                <p className='quote-text'>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Nesciunt, eum?
+                </p>
+                <p className='quote-author'>Some Guru</p>
             </div>
         </HomeContainer>
     );
@@ -62,12 +72,47 @@ const HomeContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
     }
 
-    @media screen and (min-width: 650px) {
+    .about__item {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about__item-text {
+        padding: 2rem 1rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .quote {
+        height: 250px;
+        background: var(--sand);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .quote-text {
+        text-align: center;
+        padding-bottom: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .quote-author {
+    }
+
+    @media screen and (min-width: 860px) {
         .about {
             flex-direction: row;
-            border: 1px red solid;
             justify-content: space-between;
         }
     }

@@ -11,11 +11,12 @@
     "rules": {
         "prettier/prettier": "warn",
         "jsx-filename-extension": 0,
-        "jsx-quotes": ["error", "prefer-single"],
+        "jsx-quotes": ["warn", "prefer-single"],
         "no-unused-vars": "warn",
         "react/prop-types": "off",
         "require-atomic-updates": "off",
-        "indent": ["error", 4, { "SwitchCase": 1 }]
+        "indent": ["error", 4, { "SwitchCase": 1 }],
+        "semi": ["warn", "always"]
     },
     "env": {
         "node": true,

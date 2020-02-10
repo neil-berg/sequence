@@ -40,7 +40,6 @@ export const signupUser = async ctx => {
             token
         };
         ctx.response.status = 201;
-        console.log(ctx.response);
     } catch (error) {
         ctx.throw(error.status || 500, error.message || 'An error occured');
     }
@@ -80,7 +79,7 @@ export const readUser = async ctx => {
     try {
         ctx.body = {
             ...ctx.body,
-            user: omitSensitiveData(ctx.body.user)
+            user: omitSensitiveData(ctx.state.user)
         };
         ctx.status = 200;
     } catch (error) {

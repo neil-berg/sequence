@@ -5,34 +5,39 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import { Home } from './pages/Home';
-import { About } from './pages/About';
+import { Sequences } from './pages/Sequences';
+import { NotFound } from './pages/NotFound';
+
+import { useAuth } from './hooks/auth';
 
 import './index.css';
 
 export const App = () => {
-    // const [isLoggedIn, setisLoggedIn] = useState(true);
+    const user = useAuth();
 
-    // if (!isLoggedIn) {
-    //     return (
-    //         <Router>
-    //             <Switch>
-    //                 <Route path='/'>
-    //                     <Home />
-    //                 </Route>
-    //                 <Route>
-    //                     <Home />
-    //                 </Route>
-    //             </Switch>
-    //         </Router>
-    //     );
-    // }
+    if (!user) {
+        return (
+            <Router>
+                <Header />
+                <Switch>
+                    <Route path='/'>
+                        <Home />
+                    </Route>
+                    <Route path='*'>
+                        <NotFound />
+                    </Route>
+                </Switch>
+                <Footer />
+            </Router>
+        );
+    }
 
     return (
         <Router>
             <Header />
             <Switch>
-                <Route path='/about'>
-                    <About />
+                <Route path='/sequences'>
+                    <Sequences />
                 </Route>
                 <Route path='/'>
                     <Home />

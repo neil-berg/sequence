@@ -31,10 +31,10 @@ app.use(async (ctx, next) => {
 app.use(userRouter.routes()).use(userRouter.allowedMethods());
 
 app.use(serve('build'));
-// If the file is not found by koa
-// intercept all request and return index.html
-// this way you can manage the request in React
+// If the route is not found by koa intercept the request and
+// return index.html to manage the request in React
 app.use((ctx, next) => {
+    console.log('here i am!!!!');
     ctx.type = 'html';
     ctx.body = fs.readFileSync(path.join('build', 'index.html'));
 });

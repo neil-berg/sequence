@@ -16,6 +16,9 @@ export const Header = () => {
             <h1>
                 <Link to='/'>Sequence</Link>
             </h1>
+            <h2>
+                <Link to='/sequences'>To go /sequences</Link>
+            </h2>
             <Button
                 text='Login'
                 flavor='outline'

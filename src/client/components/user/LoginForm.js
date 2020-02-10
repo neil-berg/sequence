@@ -1,15 +1,19 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable prettier/prettier */
+/* global localStorage */
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 
 import { Button } from '@components/button/Button';
 import { setUser } from './user.redux';
+import { closeModal } from '../modal/modal.redux';
 
 export const LoginForm = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [showLogin, setShowLogin] = useState(true);
     const [userDetails, setUserDetails] = useState({
         name: '',
@@ -19,21 +23,19 @@ export const LoginForm = () => {
     });
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(userDetails);
         const url = `/api/v1/user/${showLogin ? 'login' : 'signup'}`;
         try {
-            // const { data: { user, token } } = await axios.post(url, userDetails);
-            const res = await axios.post(url, userDetails);
-            console.log(res);
-            // dispatch(setUser(user));
-            // console.log('storing token in LS');
-            // console.log(token);
-            // setUserDetails({
-            //     name: '',
-            //     username: '',
-            //     email: '',
-            //     password: ''
-            // })
+            const { data: { user, token } } = await axios.post(url, userDetails);
+            localStorage.setItem('seq:token', token);
+            dispatch(setUser(user));
+            dispatch(closeModal('authModal'));
+            setUserDetails({
+                name: '',
+                username: '',
+                email: '',
+                password: ''
+            });
+            history.push('/sequences');
         } catch (error) {
             console.log(error);
         }

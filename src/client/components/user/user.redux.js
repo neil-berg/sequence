@@ -5,7 +5,9 @@ export const userInitialState = {
     _id: null,
     name: '',
     username: '',
-    email: ''
+    email: '',
+    created: null,
+    updated: null
 };
 
 export const setUser = user => ({

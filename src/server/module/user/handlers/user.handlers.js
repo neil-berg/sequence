@@ -4,21 +4,17 @@ import { genSalt, genHash } from '@server/auth/password';
 import { genToken } from '../../../auth/token';
 import { omitSensitiveData } from '@server/util';
 
-export const signupUser = async ctx => {
+export const signupUser = async (req, res) => {
     try {
-        const { name, username, email, password } = ctx.request.body;
+        const { name, username, email, password } = req.body;
         const emailCount = await User.count({ email });
         const usernameCount = await User.count({ username });
 
         if (emailCount > 0) {
-            const error = new Error('Email already exists');
-            error.status = 400;
-            throw error;
+            throw new Error('Email already exists');
         }
         if (usernameCount > 0) {
-            const error = new Error('Username already exists');
-            error.status = 400;
-            throw error;
+            throw new Error('Username already exists');
         }
 
         const salt = genSalt();
@@ -32,74 +28,48 @@ export const signupUser = async ctx => {
         });
         const token = genToken(user._id);
         await Token.save({ userId: user._id, token });
-        ctx.state.user = user;
-        ctx.state.token = token;
-        ctx.response.body = {
-            message: 'success',
-            user: omitSensitiveData(user),
-            token
-        };
-        ctx.response.status = 201;
+        res.status(200).send({ user: omitSensitiveData(user), token });
     } catch (error) {
-        ctx.throw(error.status || 500, error.message || 'An error occured');
+        res.status(400).send({ error });
     }
 };
 
-export const loginUser = async ctx => {
+export const loginUser = async (req, res) => {
     try {
-        const { email, password } = ctx.request.body;
+        const { email, password } = req.body;
         const user = await User.findByCredentials(email, password);
         const token = genToken(user._id);
         await Token.save({ userId: user._id, token });
-        ctx.response.status = 200;
-        ctx.response.body = {
-            message: 'success',
-            user: omitSensitiveData(user),
-            token
-        };
+        res.status(200).send({ user: omitSensitiveData(user), token });
     } catch (error) {
-        ctx.throw(error.status || 500, error.message || 'Unable to login');
+        res.status(400).send();
     }
 };
 
-export const logoutUser = async ctx => {
+export const logoutUser = async (req, res) => {
     try {
-        const { user, token } = ctx.state;
-        await Token.delete({ userId: user._id, token });
-        ctx.response.status = 200;
-        ctx.response.body = {
-            message: 'success'
-        };
+        await Token.delete({ userId: req.user._id, token: req.token });
+        res.status(200).send({ message: 'success' });
     } catch (error) {
-        ctx.throw(error.status || 500, error.message || 'Unable to logout');
+        res.status(500).send();
     }
 };
 
-export const readUser = async ctx => {
+export const readUser = async (req, res) => {
     try {
-        ctx.body = {
-            ...ctx.body,
-            user: omitSensitiveData(ctx.state.user)
-        };
-        ctx.status = 200;
+        res.status(200).send({ user: omitSensitiveData(req.user) });
     } catch (error) {
-        ctx.throw(error.status || 500, error.message || 'Unable to read user');
+        res.status(500).send();
     }
 };
 
-export const deleteUser = async ctx => {
+export const deleteUser = async (req, res) => {
     try {
-        const { _id } = ctx.body.user;
+        const { _id } = req.user;
         await Token.delete({ userId: _id });
         await User.delete({ _id });
-        ctx.body = {
-            message: 'success'
-        };
-        ctx.status = 200;
+        res.status(200).send({ message: 'success' });
     } catch (error) {
-        ctx.throw(
-            error.status || 500,
-            error.message || 'Unable to delete user'
-        );
+        res.status(500).send({ message: 'unable to delete user' });
     }
 };

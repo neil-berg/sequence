@@ -3,13 +3,14 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setUser } from '../components/user/user.redux';
+import { setUser, removeUser } from '../components/user/user.redux';
 
-export const useAuth = () => {
-    const [authUser, setAuthUser] = useState(null);
+export const useAuthenticated = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const dispatch = useDispatch();
+    const userId = useSelector(state => state.user._id);
 
     useEffect(() => {
         const checkUserAuth = async () => {
@@ -20,14 +21,15 @@ export const useAuth = () => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                setAuthUser(user);
+                setIsAuthenticated(true);
                 dispatch(setUser(user));
             } catch (error) {
-                console.log(error);
+                setIsAuthenticated(false);
+                dispatch(removeUser());
             }
         };
         checkUserAuth();
-    }, []);
+    }, [userId]);
 
-    return authUser;
+    return isAuthenticated;
 };

@@ -35,7 +35,7 @@ export const LoginForm = () => {
                 email: '',
                 password: ''
             });
-            history.push('/sequences');
+            history.push('/');
         } catch (error) {
             console.log(error);
         }

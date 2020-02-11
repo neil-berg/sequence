@@ -1,40 +1,18 @@
-import Koa from 'koa';
-import cors from '@koa/cors';
-import bodyParser from 'koa-bodyparser';
-import serve from 'koa-static';
 import path from 'path';
-import fs from 'fs';
+import express from 'express';
 
 import { userRouter } from '@module/user/routes/user.routes';
 
-export const app = new Koa();
+export const app = express();
 
-app.on('error', (err, ctx) => {
-    console.log('An error occured:', err.message);
-    // console.log("ctx", ctx);
-});
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.use(bodyParser());
-app.use(cors());
+app.use(userRouter);
 
-// Error handling
-app.use(async (ctx, next) => {
-    try {
-        await next();
-    } catch (err) {
-        ctx.status = err.status || 500;
-        ctx.body = err.message;
-        ctx.app.emit('error', err, ctx);
-    }
-});
-
-app.use(userRouter.routes()).use(userRouter.allowedMethods());
-
-app.use(serve('build'));
-// If the route is not found by koa intercept the request and
+app.use(express.static(path.resolve('build')));
+// If the route is not found by express then
 // return index.html to manage the request in React
-app.use((ctx, next) => {
-    console.log('here i am!!!!');
-    ctx.type = 'html';
-    ctx.body = fs.readFileSync(path.join('build', 'index.html'));
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve('build', 'index.html'));
 });

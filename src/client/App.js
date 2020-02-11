@@ -1,21 +1,28 @@
 /* eslint no-undef: off */
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect
+} from 'react-router-dom';
 
 import { Header } from './components/header/Header';
+import { AuthHeader } from './components/header/AuthHeader';
 import { Footer } from './components/footer/Footer';
 import { Home } from './pages/Home';
 import { Sequences } from './pages/Sequences';
 import { NotFound } from './pages/NotFound';
 
-import { useAuth } from './hooks/auth';
+import { useAuthenticated } from './hooks/auth';
 
 import './index.css';
 
 export const App = () => {
-    const user = useAuth();
+    const isAuthenticated = useAuthenticated();
 
-    if (!user) {
+    if (!isAuthenticated) {
+        console.log('UNAUTHED APP');
         return (
             <Router>
                 <Header />
@@ -24,7 +31,7 @@ export const App = () => {
                         <Home />
                     </Route>
                     <Route path='*'>
-                        <NotFound />
+                        <Redirect to='/' />
                     </Route>
                 </Switch>
                 <Footer />
@@ -32,15 +39,19 @@ export const App = () => {
         );
     }
 
+    console.log('AUTHED!!!');
     return (
         <Router>
-            <Header />
+            <AuthHeader />
             <Switch>
                 <Route path='/sequences'>
                     <Sequences />
                 </Route>
                 <Route path='/'>
                     <Home />
+                </Route>
+                <Route path='*'>
+                    <NotFound />
                 </Route>
             </Switch>
             <Footer />

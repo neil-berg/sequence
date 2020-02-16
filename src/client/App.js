@@ -9,6 +9,7 @@ import {
 
 import { Header } from './components/header/Header';
 import { AuthHeader } from './components/header/AuthHeader';
+import { MainNav } from './components/nav/MainNav';
 import { Footer } from './components/footer/Footer';
 import { Home } from './pages/Home';
 import { Sequences } from './pages/Sequences';
@@ -43,6 +44,7 @@ export const App = () => {
     return (
         <Router>
             <AuthHeader />
+            <MainNav />
             <Switch>
                 <Route path='/sequences'>
                     <Sequences />

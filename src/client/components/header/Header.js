@@ -14,11 +14,10 @@ export const Header = () => {
     return (
         <HeaderContainer>
             <h1>
-                <Link to='/'>Sequence</Link>
+                <Link className='app-name' to='/'>
+                    Sequence
+                </Link>
             </h1>
-            <h2>
-                <Link to='/sequences'>To go /sequences</Link>
-            </h2>
             <Button
                 text='Login'
                 flavor='outline'
@@ -39,4 +38,8 @@ const HeaderContainer = styled.header`
     align-items: center;
     background: var(--green);
     padding: 1rem;
+
+    .app-name {
+        color: var(--white);
+    }
 `;

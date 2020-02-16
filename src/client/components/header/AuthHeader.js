@@ -15,6 +15,7 @@ export const AuthHeader = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const showAuthModal = useSelector(state => state.modal.authModal.open);
+    const { username } = useSelector(state => state.user);
 
     const handleLogout = async () => {
         try {
@@ -35,12 +36,14 @@ export const AuthHeader = () => {
     };
     return (
         <HeaderContainer>
-            <h1>
-                <Link to='/'>Sequence</Link>
-            </h1>
-            <h2>
-                <Link to='/sequences'>To go /sequences</Link>
-            </h2>
+            <div className='app-username'>
+                <h1>
+                    <Link className='app-name' to='/'>
+                        Sequence
+                    </Link>
+                </h1>
+                <h2 className='username'>Hi, {username}!</h2>
+            </div>
             <Button
                 text='Logout'
                 flavor='outline'
@@ -61,4 +64,15 @@ const HeaderContainer = styled.header`
     align-items: center;
     background: var(--green);
     padding: 1rem;
+
+    .app-name {
+        color: var(--beige);
+        font-size: 1.75rem;
+    }
+
+    .username {
+        color: var(--white);
+        font-size: 1rem;
+        font-weight: normal;
+    }
 `;

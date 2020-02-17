@@ -3,24 +3,31 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import Portal from '../portal/Portal';
 import { AuthModal } from '../modal/AuthModal';
 import { Button } from '../button/Button';
-import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../user/user.redux';
+import { StoreState } from '../../redux/store';
+
+interface Logout {
+    message: string;
+}
 
 export const AuthHeader = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const showAuthModal = useSelector(state => state.modal.authModal.open);
-    const { username } = useSelector(state => state.user);
+    const showAuthModal = useSelector(
+        (state: StoreState) => state.modal.authModal.open
+    );
+    const { username } = useSelector((state: StoreState) => state.user);
 
     const handleLogout = async () => {
         try {
             const token = localStorage.getItem('seq:token');
-            await axios.post(
+            await axios.post<Logout>(
                 '/api/v1/user/logout',
                 {},
                 {

@@ -7,10 +7,9 @@ import {
     Redirect
 } from 'react-router-dom';
 
-import { Header } from './components/header/Header';
-import { AuthHeader } from './components/header/AuthHeader';
+import { Header, AuthHeader } from './components/header';
 import { MainNav } from './components/nav/MainNav';
-import { Footer } from './components/footer/Footer';
+import { Footer } from './components/footer';
 import { Home } from './pages/Home';
 import { Sequences } from './pages/Sequences';
 import { NotFound } from './pages/NotFound';

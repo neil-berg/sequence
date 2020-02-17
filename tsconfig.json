@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "outDir": "./build/",
+        "noImplicitAny": false,
+        "module": "es6",
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["./src/client/components/*"]
+        }
+    },
+    "exclude": ["node_modules", "build", "coverage"]
+}

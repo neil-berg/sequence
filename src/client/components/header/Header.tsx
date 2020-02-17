@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Portal from '../portal/Portal';
 import { AuthModal } from '../modal/AuthModal';
 import { Button } from '../button/Button';
-import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal } from '@components/modal/modal.redux';
+import { StoreState } from '../../redux/store';
 
 export const Header = () => {
     const dispatch = useDispatch();
-    const showAuthModal = useSelector(state => state.modal.authModal.open);
+    const showAuthModal = useSelector(
+        (state: StoreState) => state.modal.authModal.open
+    );
     return (
         <HeaderContainer>
             <h1>

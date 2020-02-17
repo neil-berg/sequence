@@ -8,14 +8,15 @@
                 }
             }
         ],
-        "@babel/preset-react"
+        "@babel/preset-react",
+        "@babel/preset-typescript"
     ],
     "plugins": [
         ["babel-plugin-styled-components"],
         [
             "module-resolver",
             {
-                "root": "./src",
+                "root": "./",
                 "alias": {
                     "@client": "./src/client",
                     "@components": "./src/client/components",

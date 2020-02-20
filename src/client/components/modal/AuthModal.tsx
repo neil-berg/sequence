@@ -6,7 +6,11 @@ import { useDispatch } from 'react-redux';
 import { LoginForm } from '../user/LoginForm';
 import { closeModal } from './modal.redux';
 
-export const AuthModal = ({ showAuthModal }) => {
+export interface AuthModalProps {
+    showAuthModal: boolean;
+}
+
+export const AuthModal = ({ showAuthModal }: AuthModalProps) => {
     const dispatch = useDispatch();
 
     const backdropTransition = useTransition(showAuthModal, null, {
@@ -32,8 +36,9 @@ export const AuthModal = ({ showAuthModal }) => {
                             style={animation}
                             aria-modal='true'
                             role='dialog'
-                            onClick={e => {
-                                if (e.target.classList.contains('backdrop')) {
+                            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                                const target = e.target as HTMLDivElement;
+                                if (target.classList.contains('backdrop')) {
                                     dispatch(closeModal('authModal'));
                                 }
                             }}

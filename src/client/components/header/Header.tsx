@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Portal from '../portal/Portal';
-import { AuthModal } from '../modal/AuthModal';
-import { Button } from '../button/Button';
+import { AuthModal } from '../modal';
+import { Button } from '../button';
 import { toggleModal } from '@components/modal/modal.redux';
 import { StoreState } from '../../redux/store';
 

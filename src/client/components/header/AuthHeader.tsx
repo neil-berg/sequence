@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import Portal from '../portal/Portal';
-import { AuthModal } from '../modal/AuthModal';
-import { Button } from '../button/Button';
+import { AuthModal } from '../modal';
+import { Button } from '../button';
 import { removeUser } from '../user/user.redux';
 import { StoreState } from '../../redux/store';
 

@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Portal from '../portal/Portal';
 import { AuthModal } from '../modal';
 import { Button } from '../button';
-import { toggleModal } from '@components/modal/modal.redux';
-import { StoreState } from '../../redux/store';
+import { toggleModal } from '../../actions';
+import { StoreState } from '../../store/store';
 
 export const Header = () => {
     const dispatch = useDispatch();

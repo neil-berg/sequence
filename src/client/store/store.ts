@@ -1,9 +1,8 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { userReducer } from '@components/user/user.redux';
-import { modalReducer } from '@components/modal/modal.redux';
+import { rootReducer } from '../reducers';
 
 export interface StoreState {
     user: {
@@ -23,11 +22,6 @@ export interface StoreState {
         };
     };
 }
-
-const rootReducer = combineReducers<StoreState>({
-    user: userReducer,
-    modal: modalReducer
-});
 
 export const store = createStore(
     rootReducer,

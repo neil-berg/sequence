@@ -8,8 +8,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import { Button } from '@components/button/Button';
-import { setUser } from './user.redux';
-import { closeModal } from '../modal/modal.redux';
+import { setUser, closeModal } from '../../actions';
 
 export const LoginForm = () => {
     const dispatch = useDispatch();

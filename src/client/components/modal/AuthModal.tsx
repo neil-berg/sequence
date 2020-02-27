@@ -4,7 +4,7 @@ import { animated, useTransition } from 'react-spring';
 import { useDispatch } from 'react-redux';
 
 import { LoginForm } from '../user/LoginForm';
-import { closeModal } from './modal.redux';
+import { closeModal } from '../../actions';
 
 export interface AuthModalProps {
     showAuthModal: boolean;

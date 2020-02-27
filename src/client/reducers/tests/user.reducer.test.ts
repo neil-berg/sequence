@@ -1,13 +1,8 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import {
-    userReducer,
-    userInitialState,
-    setUser,
-    removeUser
-} from '../user.redux';
-import { createTrackedStore } from '@client/util/redux-testing';
+import { userReducer, userInitialState } from '../user';
+import { setUser, removeUser } from '../../actions';
 
 const rootReducer = combineReducers({ user: userReducer });
 
@@ -48,40 +43,6 @@ describe('userReducer', () => {
 
         afterAll(() => {
             store = null;
-        });
-    });
-});
-
-describe('user actions', () => {
-    describe('setUser - normal', () => {
-        let store;
-        beforeAll(() => {
-            store = createTrackedStore(rootReducer);
-            store.dispatch(setUser(testUser));
-        });
-        it('dispatches user/add', () => {
-            expect(store.getFirstAction()).toEqual({
-                type: 'user/add',
-                user: testUser
-            });
-        });
-        afterAll(() => {
-            store.clearActions();
-        });
-    });
-    describe('removeUser - normal', () => {
-        let store;
-        beforeAll(() => {
-            store = createTrackedStore(rootReducer);
-            store.dispatch(removeUser());
-        });
-        it('dispatches user/remove', () => {
-            expect(store.getFirstAction()).toEqual({
-                type: 'user/remove'
-            });
-        });
-        afterAll(() => {
-            store.clearActions();
         });
     });
 });

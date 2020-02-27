@@ -9,8 +9,8 @@ import axios from 'axios';
 import Portal from '../portal/Portal';
 import { AuthModal } from '../modal';
 import { Button } from '../button';
-import { removeUser } from '../user/user.redux';
-import { StoreState } from '../../redux/store';
+import { removeUser } from '../../actions';
+import { StoreState } from '../../store/store';
 
 interface Logout {
     message: string;

@@ -6,10 +6,20 @@ import SearchIcon from '@assets/investigate.svg';
 import ListIcon from '@assets/list.svg';
 import WarriorIcon from '@assets/warrior.svg';
 
+enum StyledHomeClasses {
+  Landing = 'landing',
+  About = 'about',
+  AboutItem = 'about__item',
+  AboutItemText = 'about__item-text',
+  Quote = 'quote',
+  QuoteText = 'quote-text',
+  QuoteAuthor = 'quote-author'
+}
+
 export const Home = () => {
   return (
-    <HomeContainer>
-      <div className='landing'>
+    <StyledHome>
+      <div className={StyledHomeClasses.Landing}>
         <svg viewBox='0 0 400 400'>
           <defs>
             <path id='MyPath' d='M 20 40 Q 260 240 400 500' />
@@ -20,32 +30,34 @@ export const Home = () => {
           </text>
         </svg>
       </div>
-      <div className='about'>
-        <div className='about__item'>
-          <SearchIcon className='about__item-icon' width='200' height='200' />
-          <p className='about__item-text'>Search for poses</p>
+      <div className={StyledHomeClasses.About}>
+        <div className={StyledHomeClasses.AboutItem}>
+          <SearchIcon width='200' height='200' />
+          <p className={StyledHomeClasses.AboutItemText}>Search for poses</p>
         </div>
-        <div className='about__item'>
-          <ListIcon className='about__item-icon' width='200' height='200' />
-          <p className='about__item-text'>Create new sequences</p>
+        <div className={StyledHomeClasses.AboutItem}>
+          <ListIcon width='200' height='200' />
+          <p className={StyledHomeClasses.AboutItemText}>
+            Create new sequences
+          </p>
         </div>
-        <div className='about__item'>
-          <WarriorIcon className='about__item-icon' width='200' height='200' />
-          <p className='about__item-text'>Let it flow</p>
+        <div className={StyledHomeClasses.AboutItem}>
+          <WarriorIcon width='200' height='200' />
+          <p className={StyledHomeClasses.AboutItemText}>Let it flow</p>
         </div>
       </div>
-      <div className='quote'>
-        <p className='quote-text'>
+      <div className={StyledHomeClasses.Quote}>
+        <p className={StyledHomeClasses.QuoteText}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt,
         </p>
-        <p className='quote-author'>Some Guru</p>
+        <p className={StyledHomeClasses.QuoteAuthor}>Some Guru</p>
       </div>
-    </HomeContainer>
+    </StyledHome>
   );
 };
 
-const HomeContainer = styled.div`
-  .landing {
+const StyledHome = styled.div`
+  .${StyledHomeClasses.Landing} {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 70px);
@@ -53,7 +65,7 @@ const HomeContainer = styled.div`
     background: var(--green);
   }
 
-  .about {
+  .${StyledHomeClasses.About} {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,20 +74,20 @@ const HomeContainer = styled.div`
     padding: 2rem 1rem;
   }
 
-  .about__item {
+  .${StyledHomeClasses.AboutItem} {
     padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .about__item-text {
+  .${StyledHomeClasses.AboutItemText} {
     padding: 2rem 1rem;
     font-size: 1.25rem;
     font-weight: bold;
   }
 
-  .quote {
+  .${StyledHomeClasses.Quote} {
     height: 250px;
     background: var(--sand);
     display: flex;
@@ -85,18 +97,15 @@ const HomeContainer = styled.div`
     padding: 1rem;
   }
 
-  .quote-text {
+  .${StyledHomeClasses.QuoteText} {
     text-align: center;
     padding-bottom: 1rem;
     font-size: 1rem;
     font-weight: bold;
   }
 
-  .quote-author {
-  }
-
   @media screen and (min-width: 860px) {
-    .about {
+    .${StyledHomeClasses.About} {
       flex-direction: row;
       justify-content: space-between;
     }

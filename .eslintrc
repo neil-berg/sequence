@@ -1,25 +1,25 @@
 {
-    "parser": "babel-eslint",
-    "extends": [
-        "eslint:recommended",
-        "plugin:prettier/recommended",
-        "plugin:react/recommended",
-        "plugin:jsx-a11y/recommended",
-        "plugin:jest/recommended"
-    ],
-    "plugins": ["prettier", "jsx-a11y", "jest"],
-    "rules": {
-        "prettier/prettier": "warn",
-        "jsx-filename-extension": 0,
-        "jsx-quotes": ["warn", "prefer-single"],
-        "no-unused-vars": "warn",
-        "react/prop-types": "off",
-        "require-atomic-updates": "off",
-        "indent": ["error", 4, { "SwitchCase": 1 }],
-        "semi": ["warn", "always"]
-    },
-    "env": {
-        "node": true,
-        "jest": true
-    }
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:jest/recommended"
+  ],
+  "plugins": ["prettier", "jsx-a11y", "jest"],
+  "rules": {
+    "prettier/prettier": "warn",
+    "jsx-filename-extension": 0,
+    "jsx-quotes": ["warn", "prefer-single"],
+    "no-unused-vars": "warn",
+    "react/prop-types": "off",
+    "require-atomic-updates": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "semi": ["warn", "always"]
+  },
+  "env": {
+    "node": true,
+    "jest": true
+  }
 }

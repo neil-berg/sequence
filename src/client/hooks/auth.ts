@@ -9,30 +9,30 @@ import { StoreState } from '../store/store';
 import { setUser, removeUser } from '../actions';
 
 export const useAuthenticated = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const dispatch = useDispatch();
-    const userId = useSelector<StoreState>(state => state.user._id);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const dispatch = useDispatch();
+  const userId = useSelector<StoreState>(state => state.user._id);
 
-    useEffect(() => {
-        const checkUserAuth = async () => {
-            try {
-                const token = localStorage.getItem('seq:token');
-                const {
-                    data: { user }
-                } = await axios.get('/api/v1/user/me', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                setIsAuthenticated(true);
-                dispatch(setUser(user));
-            } catch (error) {
-                setIsAuthenticated(false);
-                dispatch(removeUser());
-            }
-        };
-        checkUserAuth();
-    }, [userId]);
+  useEffect(() => {
+    const checkUserAuth = async () => {
+      try {
+        const token = localStorage.getItem('seq:token');
+        const {
+          data: { user }
+        } = await axios.get('/api/v1/user/me', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setIsAuthenticated(true);
+        dispatch(setUser(user));
+      } catch (error) {
+        setIsAuthenticated(false);
+        dispatch(removeUser());
+      }
+    };
+    checkUserAuth();
+  }, [userId]);
 
-    return isAuthenticated;
+  return isAuthenticated;
 };

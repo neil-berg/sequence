@@ -13,73 +13,73 @@ import { removeUser } from '../../actions';
 import { StoreState } from '../../store/store';
 
 interface Logout {
-    message: string;
+  message: string;
 }
 
 export const AuthHeader = () => {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const showAuthModal = useSelector(
-        (state: StoreState) => state.modal.authModal.open
-    );
-    const { username } = useSelector((state: StoreState) => state.user);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const showAuthModal = useSelector(
+    (state: StoreState) => state.modal.authModal.open
+  );
+  const { username } = useSelector((state: StoreState) => state.user);
 
-    const handleLogout = async () => {
-        try {
-            const token = localStorage.getItem('seq:token');
-            await axios.post<Logout>(
-                '/api/v1/user/logout',
-                {},
-                {
-                    headers: { Authorization: `Bearer ${token}` }
-                }
-            );
-            localStorage.removeItem('seq:token');
-            dispatch(removeUser());
-            history.push('/');
-        } catch (error) {
-            console.log(error);
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('seq:token');
+      await axios.post<Logout>(
+        '/api/v1/user/logout',
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` }
         }
-    };
-    return (
-        <HeaderContainer>
-            <div className='app-username'>
-                <h1>
-                    <Link className='app-name' to='/'>
-                        Sequence
-                    </Link>
-                </h1>
-                <h2 className='username'>Hi, {username}!</h2>
-            </div>
-            <Button
-                text='Logout'
-                flavor='outline'
-                background='var(--green)'
-                color='var(--white)'
-                onClick={() => handleLogout()}
-            />
-            <Portal>
-                <AuthModal showAuthModal={showAuthModal} />
-            </Portal>
-        </HeaderContainer>
-    );
+      );
+      localStorage.removeItem('seq:token');
+      dispatch(removeUser());
+      history.push('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <HeaderContainer>
+      <div className='app-username'>
+        <h1>
+          <Link className='app-name' to='/'>
+            Sequence
+          </Link>
+        </h1>
+        <h2 className='username'>Hi, {username}!</h2>
+      </div>
+      <Button
+        text='Logout'
+        flavor='outline'
+        background='var(--green)'
+        color='var(--white)'
+        onClick={() => handleLogout()}
+      />
+      <Portal>
+        <AuthModal showAuthModal={showAuthModal} />
+      </Portal>
+    </HeaderContainer>
+  );
 };
 
 const HeaderContainer = styled.header`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--green);
-    padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--green);
+  padding: 1rem;
 
-    .app-name {
-        color: var(--beige);
-        font-size: 1.75rem;
-    }
+  .app-name {
+    color: var(--beige);
+    font-size: 1.75rem;
+  }
 
-    .username {
-        color: var(--white);
-        font-size: 1rem;
-        font-weight: normal;
-    }
+  .username {
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: normal;
+  }
 `;

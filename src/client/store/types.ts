@@ -3,19 +3,19 @@ import { ThunkAction } from 'redux-thunk';
 import { StoreState } from './store';
 
 export interface User {
-    _id: null;
-    name: '';
-    username: '';
-    email: '';
-    created: null;
-    updated: null;
+  _id: number;
+  name: string;
+  username: string;
+  email: string;
+  created: Date;
+  updated: Date;
 }
 
 export type ModalKey = 'authModal' | 'profileModal';
 
 export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    StoreState,
-    unknown,
-    Action<string>
+  ReturnType,
+  StoreState,
+  unknown,
+  Action<string>
 >;

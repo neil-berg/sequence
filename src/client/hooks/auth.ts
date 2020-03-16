@@ -1,19 +1,19 @@
 /* global localStorage */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { StoreState } from '../store/store';
-import { setUser, removeUser } from '../actions';
+import { removeUser, setUser } from '../actions';
 
 export const useAuthenticated = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const dispatch = useDispatch();
   const userId = useSelector<StoreState>(state => state.user._id);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const checkUserAuth = async () => {
       try {
         const token = localStorage.getItem('seq:token');

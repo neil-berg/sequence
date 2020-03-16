@@ -7,31 +7,38 @@ import SearchIcon from '@assets/search.svg';
 import CircleIcon from '@assets/roundabout.svg';
 import UserIcon from '@assets/user.svg';
 
+enum MainNavClasses {
+  ListItem = 'list-item',
+  ListItemLink = 'list__item-link',
+  ListItemIcon = 'list__item-icon',
+  ListItemText = 'list__item-text'
+}
+
 export const MainNav = () => {
   return (
     <NavContainer>
-      <li className='list__item'>
-        <Link className='list__item-link' to='/sequence/create'>
-          <ListIcon className='list__item-icon' />
-          <span className='list__item-text'>Create</span>
+      <li className={MainNavClasses.ListItem}>
+        <Link className={MainNavClasses.ListItemLink} to='/sequence/create'>
+          <ListIcon className={MainNavClasses.ListItemIcon} />
+          <span className={MainNavClasses.ListItemText}>Create</span>
         </Link>
       </li>
-      <li className='list__item'>
-        <Link className='list__item-link' to='/sequence/search'>
-          <SearchIcon className='list__item-icon' />
-          <span className='list__item-text'>Search</span>
+      <li className={MainNavClasses.ListItem}>
+        <Link className={MainNavClasses.ListItemLink} to='/sequence/search'>
+          <SearchIcon className={MainNavClasses.ListItemIcon} />
+          <span className={MainNavClasses.ListItemText}>Search</span>
         </Link>
       </li>
-      <li className='list__item'>
-        <Link className='list__item-link' to='/sequence/mine'>
-          <CircleIcon className='list__item-icon' />
-          <span className='list__item-text'>Flows</span>
+      <li className={MainNavClasses.ListItem}>
+        <Link className={MainNavClasses.ListItemLink} to='/sequence/mine'>
+          <CircleIcon className={MainNavClasses.ListItemIcon} />
+          <span className={MainNavClasses.ListItemText}>Flows</span>
         </Link>
       </li>
-      <li className='list__item'>
-        <Link className='list__item-link' to='/profile'>
-          <UserIcon className='list__item-icon' />
-          <span className='list__item-text'>Profile</span>
+      <li className={MainNavClasses.ListItem}>
+        <Link className={MainNavClasses.ListItemLink} to='/profile'>
+          <UserIcon className={MainNavClasses.ListItemIcon} />
+          <span className={MainNavClasses.ListItemText}>Profile</span>
         </Link>
       </li>
     </NavContainer>
@@ -48,20 +55,20 @@ const NavContainer = styled.ul`
   background: var(--green);
   padding: 0.5rem 1rem;
 
-  .list__item-link {
+  .${MainNavClasses.ListItemLink} {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
   }
 
-  .list__item-icon {
+  .${MainNavClasses.ListItemIcon} {
     height: 30px;
     width: 30px;
     fill: var(--white);
   }
 
-  .list__item-text {
+  .${MainNavClasses.ListItemText} {
     padding-top: 0.5rem;
     color: var(--white);
   }

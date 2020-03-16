@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { animated, useTransition } from 'react-spring';
 import { useDispatch } from 'react-redux';
 
-import { LoginForm } from '../user/LoginForm';
+import { LoginForm } from '../form';
 import { closeModal } from '../../actions';
 
 export interface AuthModalProps {

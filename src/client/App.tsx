@@ -1,19 +1,14 @@
 /* eslint no-undef: off */
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  Redirect,
   Route,
-  Switch,
-  Redirect
+  BrowserRouter as Router,
+  Switch
 } from 'react-router-dom';
 
-import { Header, AuthHeader } from './components/header';
-import { MainNav } from './components/nav/MainNav';
-import { Footer } from './components/footer';
-import { Home } from './pages/Home';
-import { Sequences } from './pages/Sequences';
-import { NotFound } from './pages/NotFound';
-
+import { AuthHeader, Footer, Header, MainNav } from './components';
+import { Home, NotFound, Sequences } from './pages';
 import { useAuthenticated } from './hooks/auth';
 
 import './index.css';

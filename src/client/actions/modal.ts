@@ -1,5 +1,5 @@
-import { OPEN_MODAL, CLOSE_MODAL, ModalActionTypes } from './types';
-import { ModalKey, AppThunk } from '../store/types';
+import { CLOSE_MODAL, ModalActionTypes, OPEN_MODAL } from './types';
+import { AppThunk, ModalKey } from '../store/types';
 
 export const openModal = (key: ModalKey): ModalActionTypes => ({
   type: OPEN_MODAL,

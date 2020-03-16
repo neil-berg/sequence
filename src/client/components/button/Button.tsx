@@ -1,19 +1,29 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-interface ButtonProps {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  type?: 'submit';
   flavor: string;
-  background: string;
-  color: string;
+  background?: string;
+  color?: string;
   text?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
-export const Button = ({ flavor, text, ...rest }: ButtonProps) => (
-  <StyledButton {...rest} flavor={flavor}>
-    {text}
-  </StyledButton>
-);
+export const Button = (props: ButtonProps) => {
+  const { type, flavor, background, color, text, onClick } = props;
+  return (
+    <StyledButton
+      type={type}
+      flavor={flavor}
+      background={background}
+      color={color}
+      onClick={onClick}
+    >
+      {text}
+    </StyledButton>
+  );
+};
 
 const StyledButton = styled.button<ButtonProps>`
   cursor: pointer;

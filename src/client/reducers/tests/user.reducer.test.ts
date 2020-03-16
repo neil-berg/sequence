@@ -1,8 +1,8 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import { userReducer, userInitialState } from '../user';
-import { setUser, removeUser } from '../../actions';
+import { userInitialState, userReducer } from '../user';
+import { removeUser, setUser } from '../../actions';
 
 const rootReducer = combineReducers({ user: userReducer });
 

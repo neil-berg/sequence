@@ -1,4 +1,4 @@
-import { User, ModalKey } from '../store/types';
+import { ModalKey, User } from '../store/types';
 
 /** User action types */
 export const SET_USER = 'user/add';

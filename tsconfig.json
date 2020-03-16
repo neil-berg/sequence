@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "outDir": "./build/",
+        "noImplicitAny": false,
+        "module": "es6",
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["./src/client/components/*"],
+            "@client/*": ["./src/client/*"],
+            "@assets/*": ["./src/client/assets/*"],
+            "@server/*": ["./src/server/*"],
+            "@module/*": ["./src/server/module/*"]
+        }
+    },
+    "exclude": ["node_modules", "build", "coverage"]
+}

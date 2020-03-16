@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+// const Dotenv = require('dotenv-webpack');
 
 const BUILD_DIR = path.resolve(__dirname, 'build');
 
@@ -14,6 +14,15 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader'
+                    }
+                ]
+            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
@@ -37,11 +46,17 @@ module.exports = {
             {
                 test: /\.svg$/,
                 use: ['@svgr/webpack']
+            },
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader'
             }
         ]
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx']
+        extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
     plugins: [
         new HtmlWebpackPlugin({
